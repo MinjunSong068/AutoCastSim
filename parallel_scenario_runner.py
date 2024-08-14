@@ -9,7 +9,7 @@ import itertools
 from copy import deepcopy
 
 from AVR.DataLogger import DataLogger
-from scenario_runner import ScenarioRunner, VERSION
+from scenario_runner import ScenarioRunner, VERSION, MIN_CARLA_VERSION
 from AVR import Utils
 
 
