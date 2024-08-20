@@ -31,7 +31,7 @@ import carla
 from agents.navigation.basic_agent import BasicAgent, LocalPlanner
 from agents.navigation.local_planner import RoadOption
 
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider #,CarlaActorPool
 from srunner.scenariomanager.timer import GameTime
 from srunner.tools.scenario_helper import detect_lane_obstacle
 from srunner.tools.scenario_helper import generate_target_waypoint_list_multilane
@@ -872,16 +872,19 @@ class TrafficJamChecker(AtomicBehavior):
         self.list_intersection_waypoints = []
 
         # remove initial collisions during setup
-        list_actors = list(CarlaActorPool.get_actors())
+        list_actors = list(CarlaDataProvider._world.get_actors())
+        # list_actors = list(CarlaActorPool.get_actors())
         for _, actor in list_actors:
             if actor.attributes['role_name'] == 'autopilot':
                 if detect_lane_obstacle(actor, margin=0.2):
-                    CarlaActorPool.remove_actor_by_id(actor.id)
+                    CarlaDataProvider.remove_actor_by_id(actor.id)
+                    # CarlaActorPool.remove_actor_by_id(actor.id)
 
         # prepare a table to check for stalled vehicles during the execution of the scenario
         self.table_blocked_actors = {}
         current_game_time = GameTime.get_time()
-        for actor_id, actor in CarlaActorPool.get_actors():
+        for actor_id, actor in CarlaDataProvider._world.get_actors():
+        # for actor_id, actor in CarlaActorPool.get_actors():
             if actor.attributes['role_name'] == 'autopilot':
                 actor.set_autopilot(True)
                 self.table_blocked_actors[actor_id] = {'location': actor.get_location(),
@@ -901,7 +904,8 @@ class TrafficJamChecker(AtomicBehavior):
         current_game_time = GameTime.get_time()
 
         list_actors_to_destroy = []
-        for actor_id, actor in CarlaActorPool.get_actors():
+        # for actor_id, actor in CarlaActorPool.get_actors():
+        for actor_id, actor in CarlaDataProvider._world.get_actors():
             if actor.attributes['role_name'] == 'autopilot':
                 block_info = self.table_blocked_actors[actor_id]
                 current_location = actor.get_location()
@@ -947,7 +951,8 @@ class TrafficJamChecker(AtomicBehavior):
                         list_actors_to_destroy.append(actor_id)
 
         for actor_id in list_actors_to_destroy:
-            CarlaActorPool.remove_actor_by_id(actor_id)
+            CarlaDataProvider.remove_actor_by_id(actor_id)
+            # CarlaActorPool.remove_actor_by_id(actor_id)
             self.table_blocked_actors[actor_id] = None
 
         return new_status
@@ -1427,7 +1432,8 @@ class ActorDestroy(AtomicBehavior):
     def update(self):
         new_status = py_trees.common.Status.RUNNING
         if self._actor:
-            CarlaActorPool.remove_actor_by_id(self._actor.id)
+            CarlaDataProvider.remove_actor_by_id(self._actor.id)
+            # CarlaActorPool.remove_actor_by_id(self._actor.id)
             self._actor = None
             new_status = py_trees.common.Status.SUCCESS
 
@@ -1592,7 +1598,8 @@ class ActorSource(AtomicBehavior):
 
             if not spawn_point_blocked:
                 try:
-                    new_actor = CarlaActorPool.request_new_actor(np.random.choice(self._actor_types), self._spawn_point)
+                    new_actor = CarlaDataProvider.request_new_actor(np.random.choice(self._actor_types), self._spawn_point)
+                    # new_actor = CarlaActorPool.request_new_actor(np.random.choice(self._actor_types), self._spawn_point)
                     self._actor_limit -= 1
                     self._queue.put(new_actor)
                 except:                             # pylint: disable=bare-except
@@ -1624,7 +1631,8 @@ class ActorSink(AtomicBehavior):
 
     def update(self):
         new_status = py_trees.common.Status.RUNNING
-        CarlaActorPool.remove_actors_in_surrounding(self._sink_location, self._threshold)
+        # CarlaActorPool.remove_actors_in_surrounding(self._sink_location, self._threshold)
+        CarlaDataProvider.remove_actors_in_surrounding(self._sink_location, self._threshold)
         return new_status
 
 
