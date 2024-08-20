@@ -12,7 +12,7 @@ import h5py
 import carla
 
 from AVR import Utils
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider #,CarlaActorPool
 
 
 class DataLogger():
@@ -27,9 +27,11 @@ class DataLogger():
     @staticmethod
     def compile_actor_state(agent_instance, frame_number, agent_wrapper=None):
 
-        ego_vehicle = CarlaActorPool.get_hero_actor()
+        ego_vehicle = CarlaDataProvider.get_hero_actor()
+        # ego_vehicle = CarlaActorPool.get_hero_actor()
         sensor_data = agent_instance.sensor_interface.get_data_obj()
-        ego_transform = CarlaActorPool.get_hero_actor().get_transform()
+        ego_transform = CarlaDataProvider.get_hero_actor().get_transform()
+        # ego_transform = CarlaActorPool.get_hero_actor().get_transform()
 
         # add the ego trajectory output
         # ego_collaborator = agent_wrapper.get_collaborator_for_hud(ego_vehicle.id)
@@ -124,12 +126,14 @@ class DataLogger():
         # print("shared summary")
         shared_detected_objects = Utils.summarize_detected_object(agent_instance._agent.filtered_object_list)
         single_detected_objects = dict()
-        actor_list = CarlaActorPool.get_actors()
+        actor_list = CarlaDataProvider.get_actors()
+        # actor_list = CarlaActorPool.get_actors()
 
         other_single_detected_objects_by_detectee = dict()
         other_shared_detected_objects_by_detectee = dict()
         if agent_wrapper is not None:
-            ego_id = CarlaActorPool.get_hero_actor().id
+            ego_id = CarlaDataProvider.get_hero_actor().id
+            # ego_id = CarlaActorPool.get_hero_actor().id
             ego_collaborator = agent_wrapper.get_collaborator_for_hud(ego_id)
             # print("single summary")
             single_detected_objects = Utils.summarize_detected_object(ego_collaborator.filtered_detected_object_list)
@@ -153,7 +157,8 @@ class DataLogger():
         # print(other_single_detected_objects_by_detectee)
 
         other_actors = dict()
-        actor_list = CarlaActorPool.get_actors()
+        actor_list = CarlaDataProvider._world.get_actors()
+        # actor_list = CarlaActorPool.get_actors()
         for _, actor in actor_list:
             # print(actor.id)
             if actor is None:

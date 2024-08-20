@@ -27,7 +27,8 @@ def extract_actor_bbox_ego_perspective(actor_list, th=0.2):
                        [(extent.y + th), (extent.x + th), extent.z],
                        [(extent.y + th), -1 * (extent.x + th), extent.z]])
         pc = np.array(
-            Utils.transform_pointcloud(pc, d.get_transform(), CarlaActorPool.get_hero_actor().get_transform()))
+            Utils.transform_pointcloud(pc, d.get_transform(), CarlaDataProvider.get_hero_actor().get_transform()))
+            # Utils.transform_pointcloud(pc, d.get_transform(), CarlaActorPool.get_hero_actor().get_transform()))
         object_bbox_list.append(pc)
     return object_bbox_list
 
@@ -1149,7 +1150,9 @@ class LidarPreprocessor(object):
         # # debug
         # for obj in filtered_object_list:
         #     obj.print()
-        if ego_actor.id == CarlaActorPool.get_hero_actor().id:
+
+        # if ego_actor.id == CarlaActorPool.get_hero_actor().id:
+        if ego_actor.id == CarlaDataProvider.get_hero_actor().id:
             Utils.summarize_detected_object(filtered_object_list)
 
         return filtered_object_list

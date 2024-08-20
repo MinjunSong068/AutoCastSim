@@ -86,7 +86,8 @@ class Sched(object):
         TXRX_visibility_vector = np.zeros(shape=[num_vehicles,num_vehicles,Utils.View])
         debug_vector = np.zeros(shape=[num_vehicles,Utils.View])
         # using hero actor as cluster head (RSU) for now
-        RSU_location = CarlaActorPool.get_hero_actor().get_transform().location
+        # RSU_location = CarlaActorPool.get_hero_actor().get_transform().location
+        RSU_location = CarlaDataProvider.get_hero_actor().get_transform().location
         clusterHeadTrans = carla.Transform(carla.Location(x=RSU_location.x, y=RSU_location.y))
 
 

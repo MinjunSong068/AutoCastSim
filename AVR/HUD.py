@@ -39,7 +39,7 @@ import copy
 import weakref
 from carla import ColorConverter as cc
 
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider #,CarlaActorPool
 from AVR.Sensors import CollisionSensor, GnssSensor, LaneInvasionSensor
 from AVR.KeyboardControl import KeyboardControl
 from AVR.DataLogger import DataLogger
@@ -232,8 +232,10 @@ class HUD(object):
         if not self._show_info:
             return
 
-        ego_vehicle = CarlaActorPool.get_hero_actor()
-        vehicles = list(CarlaActorPool.get_actor_dict().values())
+        ego_vehicle = CarlaDataProvider.get_hero_actor()
+        # ego_vehicle = CarlaActorPool.get_hero_actor()
+        vehicles = list(CarlaDataProvider._carla_actor_pool.values)
+        # vehicles = list(CarlaActorPool.get_actor_dict().values())
         if ego_vehicle is None:
             return
         else:

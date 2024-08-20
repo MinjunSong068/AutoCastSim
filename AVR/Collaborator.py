@@ -429,7 +429,8 @@ class Collaborator(object):
                 self.sensor_object[str(ViewId)] = np.empty(shape=[0, 3])
                 self.id_object[str(ViewId)] = []
 
-                actor_list = list(CarlaActorPool.get_actor_dict().values())
+                actor_list = list(CarlaDataProvider._carla_actor_pool.values)
+                # actor_list = list(CarlaActorPool.get_actor_dict().values())
 
                 if Utils.COMMLOG:
                     [self.sensor_object[str(ViewId)], self.id_object[str(ViewId)]] = Utils.get_dynamic_object(
@@ -486,7 +487,8 @@ class Collaborator(object):
             - beaconlist: if using centralized beaconlist, it's consistent, be aware of inconsistency when using distributed beaconlist
         """
 
-        hero_actor = CarlaActorPool.get_hero_actor()
+        hero_actor = CarlaDataProvider.get_hero_actor()
+        # hero_actor = CarlaActorPool.get_hero_actor()
         cluster_center_trans = CarlaDataProvider.get_transform(hero_actor)
 
         # filter beacon based on cluster center and distance
