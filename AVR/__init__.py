@@ -14,7 +14,7 @@ import numpy as np
 import glob
 from time import time
 from numpy.linalg import norm
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from tqdm import tqdm
 from numba import jit
 
@@ -298,7 +298,7 @@ class Utils:
         # print("========================================================")
         point_dumb = []
         objectlist = []
-        TXTrans = CarlaActorPool.get_hero_actor().get_transform()
+        TXTrans = CarlaDataProvider.get_hero_actor().get_transform()
         for d in nearby_objects:
             if d is None:
                 continue
