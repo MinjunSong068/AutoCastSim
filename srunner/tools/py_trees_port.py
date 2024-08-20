@@ -43,7 +43,7 @@ class Decorator(py_trees.behaviour.Behaviour):
         self.children.append(child)
         # Give a convenient alias
         self.decorated = self.children[0]
-        self.decorated.parent_collaborator = self
+        self.decorated.parent = self
 
     def tick(self):
         """
