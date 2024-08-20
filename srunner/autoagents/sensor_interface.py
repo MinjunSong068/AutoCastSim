@@ -10,11 +10,24 @@ handling the use of sensors for the agents
 
 import copy
 import logging
-import threading
+
+try:
+    from queue import Queue
+    from queue import Empty
+except ImportError:
+    from Queue import Queue
+    from Queue import Empty
+
 import numpy as np
 
 import carla
 
+
+class SensorReceivedNoData(Exception):
+
+    """
+    Exceptions thrown when the sensors used by the agent take too long to receive data
+    """
 
 
 class CallBack(object):
@@ -57,7 +70,7 @@ class CallBack(object):
         array = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
         array = copy.deepcopy(array)
         array = np.reshape(array, (image.height, image.width, 4))
-        self._data_provider.update_sensor(tag, array, image, image.frame)
+        self._data_provider.update_sensor(tag, array, image.frame)
 
     def _parse_lidar_cb(self, lidar_data, tag):
         """
@@ -66,7 +79,7 @@ class CallBack(object):
         points = np.frombuffer(lidar_data.raw_data, dtype=np.dtype('f4'))
         points = copy.deepcopy(points)
         points = np.reshape(points, (int(points.shape[0] / 4), 4))
-        self._data_provider.update_sensor(tag, points, lidar_data, lidar_data.frame)
+        self._data_provider.update_sensor(tag, points, lidar_data.frame)
 
     def _parse_radar_cb(self, radar_data, tag):
         """
@@ -86,7 +99,7 @@ class CallBack(object):
         array = np.array([gnss_data.latitude,
                           gnss_data.longitude,
                           gnss_data.altitude], dtype=np.float64)
-        self._data_provider.update_sensor(tag, array, gnss_data, gnss_data.frame)
+        self._data_provider.update_sensor(tag, array, gnss_data.frame)
 
     def _parse_imu_cb(self, imu_data, tag):
         """
@@ -114,111 +127,39 @@ class SensorInterface(object):
         Initializes the class
         """
         self._sensors_objects = {}
-        self._data_buffers = {}
-        self._data_object = {}
-        self._timestamps = {}
-        # self._lock = threading.Lock()
-
-    def has_sensor(self, tag):
-        if tag in self._sensors_objects:
-            return True
-        else:
-            return False
+        self._new_data_buffers = Queue()
+        self._queue_timeout = 10
 
     def register_sensor(self, tag, sensor):
         """
         Registers the sensors
         """
-        print("registering sensor {}".format(tag))
         if tag in self._sensors_objects:
-            print(self._sensors_objects[tag])
             raise ValueError("Duplicated sensor tag [{}]".format(tag))
 
-        # self._lock.acquire()
         self._sensors_objects[tag] = sensor
-        self._data_buffers[tag] = None
-        self._data_object[tag] = None
-        self._timestamps[tag] = -1
-        # self._lock.release()
-        print("finished registering sensor {}".format(tag))
 
-    def destroy_sensor(self, tag):
-        if tag not in self._sensors_objects:
-            return
-        print("destroying sensor {}".format(tag))
-        # self._lock.acquire()
-        if self._sensors_objects[tag] is not None:
-            self._sensors_objects[tag].stop()
-            self._sensors_objects[tag].destroy()
-        try:
-            del self._sensors_objects[tag]
-            del self._data_buffers[tag]
-            del self._data_object[tag]
-            del self._timestamps[tag]
-        except Exception as e:
-            print("sensor {} already removed".format(tag))
-        # self._lock.release()
-        self._sensors_objects.pop(tag, None)
-        self._data_buffers.pop(tag, None)
-        self._data_object.pop(tag, None)
-        self._timestamps.pop(tag, None)
-        print("finished destroying sensor {}".format(tag))
-
-    def update_sensor(self, tag, data, data_obj, timestamp):
+    def update_sensor(self, tag, data, timestamp):
         """
         Updates the sensor
         """
         if tag not in self._sensors_objects:
             raise ValueError("The sensor with tag [{}] has not been created!".format(tag))
-        self._data_buffers[tag] = data
-        self._data_object[tag] = data_obj
-        self._timestamps[tag] = timestamp
-        # print("Sensor Updated")
 
-    def all_sensors_ready(self):
-        """
-        Checks if all the sensors have sent data at least once
-        """
-        for key in self._sensors_objects:
-            if self._data_buffers[key] is None:
-                return False
-        return True
+        self._new_data_buffers.put((tag, timestamp, data))
 
     def get_data(self):
         """
         Returns the data of a sensor
         """
-        # self._lock.acquire()
-        data_dict = {}
-        for key in self._sensors_objects:
-            data_dict[key] = (self._timestamps[key], self._data_buffers[key])
-        # self._lock.release()
+        try:
+            data_dict = {}
+            while len(data_dict.keys()) < len(self._sensors_objects.keys()):
+
+                sensor_data = self._new_data_buffers.get(True, self._queue_timeout)
+                data_dict[sensor_data[0]] = ((sensor_data[1], sensor_data[2]))
+
+        except Empty:
+            raise SensorReceivedNoData("A sensor took too long to send its data")
+
         return data_dict
-
-    def get_data_obj(self):
-        # print("getting data object")
-        # self._lock.acquire()
-        data_obj_dict = {}
-        # print(self._sensors_objects.keys())
-        # print(self._timestamps.keys())
-        # print(self._data_object.keys())
-        for key in self._sensors_objects.keys():
-            data_obj_dict[key] = (self._timestamps[key], self._data_object[key])
-        # self._lock.release()
-        # print("finished getting data object")
-        return data_obj_dict
-
-    def get_data_by_id(self, sensor_id):
-        """
-        Returns the data of a sensor
-        """
-        if sensor_id in self._sensors_objects:
-            return self._data_buffers[sensor_id]
-        else:
-            return None
-
-    def get_data_obj_by_id(self, sensor_id):
-        if sensor_id in self._sensors_objects:
-            return self._data_object[sensor_id]
-        else:
-            return None
