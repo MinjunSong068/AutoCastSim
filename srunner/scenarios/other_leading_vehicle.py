@@ -19,7 +19,7 @@ import py_trees
 
 import carla
 
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider, CarlaActorPool
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
                                                                       WaypointFollower,
                                                                       ActorDestroy)
@@ -50,8 +50,8 @@ class OtherLeadingVehicle(BasicScenario):
         self._first_vehicle_location = 35
         self._second_vehicle_location = self._first_vehicle_location + 1
         self._ego_vehicle_drive_distance = self._first_vehicle_location * 4
-        self._first_vehicle_speed = 55
-        self._second_vehicle_speed = 45
+        self._first_vehicle_speed = 55 / 3.6
+        self._second_vehicle_speed = 45 / 3.6
         self._reference_waypoint = self._map.get_waypoint(config.trigger_points[0].location)
         self._other_actor_max_brake = 1.0
         self._first_actor_transform = None
@@ -79,8 +79,8 @@ class OtherLeadingVehicle(BasicScenario):
         second_vehicle_transform = carla.Transform(second_vehicle_waypoint.transform.location,
                                                    second_vehicle_waypoint.transform.rotation)
 
-        first_vehicle = CarlaActorPool.request_new_actor('vehicle.nissan.patrol', first_vehicle_transform)
-        second_vehicle = CarlaActorPool.request_new_actor('vehicle.audi.tt', second_vehicle_transform)
+        first_vehicle = CarlaDataProvider.request_new_actor('vehicle.nissan.patrol', first_vehicle_transform)
+        second_vehicle = CarlaDataProvider.request_new_actor('vehicle.audi.tt', second_vehicle_transform)
 
         self.other_actors.append(first_vehicle)
         self.other_actors.append(second_vehicle)

@@ -14,14 +14,14 @@ And encounters another vehicle passing across the junction.
 import py_trees
 import carla
 
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
                                                                       ActorDestroy,
                                                                       SyncArrival,
                                                                       KeepVelocity,
                                                                       StopVehicle)
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest, DrivenDistanceTest
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import InTriggerRegion
+from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest
+from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import InTriggerRegion, DriveDistance, WaitEndIntersection
 from srunner.scenarios.basic_scenario import BasicScenario
 
 
@@ -44,7 +44,7 @@ class NoSignalJunctionCrossing(BasicScenario):
     _other_actor_target_velocity = 15
 
     def __init__(self, world, ego_vehicles, config, randomize=False, debug_mode=False, criteria_enable=True,
-                 timeout=0):
+                 timeout=60):
         """
         Setup all relevant parameters and create scenario
         """
@@ -58,7 +58,7 @@ class NoSignalJunctionCrossing(BasicScenario):
                                                        config,
                                                        world,
                                                        debug_mode,
-                                                       criteria_enable=False)
+                                                       criteria_enable=criteria_enable)
 
     def _initialize_actors(self, config):
         """
@@ -70,7 +70,7 @@ class NoSignalJunctionCrossing(BasicScenario):
                            config.other_actors[0].transform.location.y,
                            config.other_actors[0].transform.location.z - 500),
             config.other_actors[0].transform.rotation)
-        first_vehicle = CarlaActorPool.request_new_actor(config.other_actors[0].model, first_vehicle_transform)
+        first_vehicle = CarlaDataProvider.request_new_actor(config.other_actors[0].model, first_vehicle_transform)
         first_vehicle.set_simulate_physics(enabled=False)
         self.other_actors.append(first_vehicle)
 
@@ -121,15 +121,15 @@ class NoSignalJunctionCrossing(BasicScenario):
         )
 
         # Creating non-leaf nodes
-        # root = py_trees.composites.Sequence()
-        scenario_sequence = py_trees.composites.Sequence("NoSignalJunctionCrossing")
+        root = py_trees.composites.Sequence()
+        scenario_sequence = py_trees.composites.Sequence()
         sync_arrival_parallel = py_trees.composites.Parallel(
             policy=py_trees.common.ParallelPolicy.SUCCESS_ON_ONE)
         keep_velocity_other_parallel = py_trees.composites.Parallel(
             policy=py_trees.common.ParallelPolicy.SUCCESS_ON_ONE)
 
         # Building tree
-        # root.add_child(scenario_sequence)
+        root.add_child(scenario_sequence)
         scenario_sequence.add_child(ActorTransformSetter(self.other_actors[0], self._other_actor_transform))
         scenario_sequence.add_child(start_other_trigger)
         scenario_sequence.add_child(sync_arrival_parallel)
@@ -143,7 +143,7 @@ class NoSignalJunctionCrossing(BasicScenario):
         keep_velocity_other_parallel.add_child(keep_velocity_other)
         keep_velocity_other_parallel.add_child(stop_other_trigger)
 
-        return scenario_sequence
+        return root
 
     def _create_test_criteria(self):
         """
@@ -152,22 +152,61 @@ class NoSignalJunctionCrossing(BasicScenario):
         """
         criteria = []
 
-        # Adding checks for ego vehicle
-        collision_criterion_ego = CollisionTest(self.ego_vehicles[0])
-        driven_distance_criterion = DrivenDistanceTest(
-            self.ego_vehicles[0], self._ego_vehicle_driven_distance)
-        criteria.append(collision_criterion_ego)
-        criteria.append(driven_distance_criterion)
-
-        # Add approriate checks for other vehicles
-        for vehicle in self.other_actors:
-            collision_criterion = CollisionTest(vehicle)
-            criteria.append(collision_criterion)
+        collison_criteria = CollisionTest(self.ego_vehicles[0])
+        criteria.append(collison_criteria)
 
         return criteria
 
     def __del__(self):
         """
         Remove all actors upon deletion
+        """
+        self.remove_all_actors()
+
+
+class NoSignalJunctionCrossingRoute(BasicScenario):
+
+    """
+    At routes, these scenarios are simplified, as they can be triggered making
+    use of the background activity. For unsignalized intersections, just wait
+    until the ego_vehicle has left the intersection.
+    """
+
+    def __init__(self, world, ego_vehicles, config, randomize=False, debug_mode=False, criteria_enable=True,
+                 timeout=180):
+        """
+        Setup all relevant parameters and create scenario
+        and instantiate scenario manager
+        """
+        # Timeout of scenario in seconds
+        self.timeout = timeout
+        self._end_distance = 50
+
+        super(NoSignalJunctionCrossingRoute, self).__init__("NoSignalJunctionCrossingRoute",
+                                                            ego_vehicles,
+                                                            config,
+                                                            world,
+                                                            debug_mode,
+                                                            criteria_enable=criteria_enable)
+
+    def _create_behavior(self):
+        """
+        Just wait for the ego to exit the junction, for route the BackgroundActivity already does all the job
+        """
+        sequence = py_trees.composites.Sequence("UnSignalizedJunctionCrossingRoute")
+        sequence.add_child(WaitEndIntersection(self.ego_vehicles[0]))
+        sequence.add_child(DriveDistance(self.ego_vehicles[0], self._end_distance))
+        return sequence
+
+    def _create_test_criteria(self):
+        """
+        A list of all test criteria will be created that is later used
+        in parallel behavior tree.
+        """
+        return []
+
+    def __del__(self):
+        """
+        Remove all actors and traffic lights upon deletion
         """
         self.remove_all_actors()
