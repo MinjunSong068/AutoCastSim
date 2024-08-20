@@ -18,7 +18,7 @@ from AVR.ViewSegment import ViewSegment
 from AVR.CommLogger import CommLogger
 from AVR.PCProcess import LidarPreprocessor
 from AVR.TraceLogger import TraceLogger
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider, CarlaActorPool
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider #, CarlaActorPool
 
 LidarSensorName = "_LIDAR"
 FusedLidarSensorName = "_FusedLidar"
