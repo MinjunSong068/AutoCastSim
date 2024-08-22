@@ -16,7 +16,7 @@ import carla
 from agents.navigation.local_planner import RoadOption
 
 from AVR import Utils
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider, CarlaActorPool
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
                                                                       ActorDestroy,
                                                                       ActorSource,
@@ -132,7 +132,7 @@ class AutoCastIntersectionUnprotectedLeftTurn(BasicScenario):
             rolename = 'scenario'
             if Utils.PASSIVE_COLLIDER:
                 rolename = Utils.PASSIVE_ACTOR_ROLENAME
-            first_vehicle = CarlaActorPool.request_new_actor('vehicle.audi.tt', self._other_actor_transform, rolename=rolename)
+            first_vehicle = CarlaDataProvider.request_new_actor('vehicle.audi.tt', self._other_actor_transform, rolename=rolename)
             # first_vehicle.set_transform(first_vehicle_transform)
             # first_vehicle.set_simulate_physics(enabled=False)
             self._collider = first_vehicle
@@ -158,7 +158,7 @@ class AutoCastIntersectionUnprotectedLeftTurn(BasicScenario):
                            other_actor_waypoint_intersection.transform.rotation.yaw-30, # was +30 for left turning compensation
                            other_actor_waypoint_intersection.transform.rotation.roll)
             )
-        self._occluder = CarlaActorPool.request_new_actor('vehicle.carlamotors.carlacola',
+        self._occluder = CarlaDataProvider.request_new_actor('vehicle.carlamotors.carlacola',
                                                           self._blocking_truck_transform)
         self._occluder.set_simulate_physics(True)
         self.other_actors.append(self._occluder)

@@ -16,7 +16,7 @@ import py_trees
 import carla
 
 from AVR import Utils
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
                                                                       ActorDestroy,
                                                                       SyncArrival,
@@ -115,7 +115,7 @@ class AutoCastIntersectionRedLightViolation(BasicScenario):
             rolename = 'scenario'
             if Utils.PASSIVE_COLLIDER:
                 rolename = Utils.PASSIVE_ACTOR_ROLENAME
-            first_vehicle = CarlaActorPool.request_new_actor('vehicle.audi.tt', first_vehicle_transform, rolename=rolename)
+            first_vehicle = CarlaDataProvider.request_new_actor('vehicle.audi.tt', first_vehicle_transform, rolename=rolename)
             first_vehicle.set_simulate_physics(enabled=False)
             self._collider = first_vehicle
             self.other_actors.append(first_vehicle)
@@ -152,10 +152,10 @@ class AutoCastIntersectionRedLightViolation(BasicScenario):
                 dummy_truck_waypoint.transform.rotation)
 
             if Utils.TEST_INTROVIDEO:
-                dummy_truck_blueprint = CarlaActorPool.create_blueprint(dummy_obstacle_blueprint_name[bp_index%3],
+                dummy_truck_blueprint = CarlaDataProvider.create_blueprint(dummy_obstacle_blueprint_name[bp_index%3],
                                                                     'scenario_background')
             else:
-                dummy_truck_blueprint = CarlaActorPool.create_blueprint('vehicle.carlamotors.carlacola',
+                dummy_truck_blueprint = CarlaDataProvider.create_blueprint('vehicle.carlamotors.carlacola',
                                                                         'scenario_background')
             bp_index += 1
             self.ego_vehicles[0].get_world().try_spawn_actor(dummy_truck_blueprint, dummy_truck_transform)
@@ -172,7 +172,7 @@ class AutoCastIntersectionRedLightViolation(BasicScenario):
                            dummy_truck_waypoint.transform.rotation.yaw,
                            dummy_truck_waypoint.transform.rotation.roll))
         print("occluder at:{}".format(self._blocking_truck_transform.location))
-        self._occluder = CarlaActorPool.request_new_actor('vehicle.carlamotors.carlacola',
+        self._occluder = CarlaDataProvider.request_new_actor('vehicle.carlamotors.carlacola',
                                                           self._blocking_truck_transform)
         self._occluder.set_simulate_physics(True)
         print("other_actors", self.other_actors)

@@ -8,7 +8,7 @@ import py_trees
 import carla
 
 from AVR import Utils
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
                                                                       ActorDestroy,
                                                                       SyncArrival,
@@ -97,7 +97,7 @@ class AutoCastTest(BasicScenario):
         dummy_truck_waypoint = CarlaDataProvider.get_map().get_waypoint(
             self._trigger_point_transform.location).get_left_lane()
         # dummy_truck_waypoint = dummy_truck_waypoint.next(3)[0]
-        dummy_truck_blueprint = CarlaActorPool.create_blueprint('vehicle.nissan.micra', 'scenario_background')
+        dummy_truck_blueprint = CarlaDataProvider.create_blueprint('vehicle.nissan.micra', 'scenario_background')
         while not dummy_truck_waypoint.is_intersection:
             # print("Trying to spawn actor at {}".format(dummy_truck_waypoint.transform.location))
             dummy_truck_transform = carla.Transform(
@@ -114,7 +114,7 @@ class AutoCastTest(BasicScenario):
             carla.Rotation(dummy_truck_waypoint.transform.rotation.pitch,
                            dummy_truck_waypoint.transform.rotation.yaw -10,
                            dummy_truck_waypoint.transform.rotation.roll))
-        self._occluder = CarlaActorPool.request_new_actor('vehicle.carlamotors.carlacola',
+        self._occluder = CarlaDataProvider.request_new_actor('vehicle.carlamotors.carlacola',
                                                           self._blocking_truck_transform)
         self._occluder.set_simulate_physics(True)
         self.other_actors.append(self._occluder)
@@ -124,48 +124,48 @@ class AutoCastTest(BasicScenario):
         # Cars in the left
         print("Cars in the left")
         spawn_point = carla.Transform(carla.Location(x=-63, y=127.5, z=1), carla.Rotation(yaw=180))
-        left_car_1 = CarlaActorPool.request_new_actor('vehicle.bmw.grandtourer', spawn_point)
+        left_car_1 = CarlaDataProvider.request_new_actor('vehicle.bmw.grandtourer', spawn_point)
         self.other_actors.append(left_car_1)
         spawn_point = carla.Transform(carla.Location(x=-63, y=131.5, z=1), carla.Rotation(yaw=180))
-        left_car_2 = CarlaActorPool.request_new_actor('vehicle.nissan.micra', spawn_point)
+        left_car_2 = CarlaDataProvider.request_new_actor('vehicle.nissan.micra', spawn_point)
         self.other_actors.append(left_car_2)
 
         # # Cars in the right
         print("Cars in the right")
         spawn_point = carla.Transform(carla.Location(x=-100, y=136, z=1), carla.Rotation(yaw=0))
-        right_car_1 = CarlaActorPool.request_new_actor('vehicle.chevrolet.impala', spawn_point)
+        right_car_1 = CarlaDataProvider.request_new_actor('vehicle.chevrolet.impala', spawn_point)
         self.other_actors.append(right_car_1)
         spawn_point = carla.Transform(carla.Location(x=-100, y=140, z=1), carla.Rotation(yaw=0))
-        right_car_2 = CarlaActorPool.request_new_actor('vehicle.audi.tt', spawn_point)
+        right_car_2 = CarlaDataProvider.request_new_actor('vehicle.audi.tt', spawn_point)
         self.other_actors.append(right_car_2)
 
         # # Cars in the top
         print("Cars in the top")
         spawn_point = carla.Transform(carla.Location(x=-79, y=142, z=1), carla.Rotation(yaw=270-10))
-        top_car_1_1 = CarlaActorPool.request_new_actor('vehicle.carlamotors.carlacola', spawn_point)
+        top_car_1_1 = CarlaDataProvider.request_new_actor('vehicle.carlamotors.carlacola', spawn_point)
         self.other_actors.append(top_car_1_1)
         spawn_point = carla.Transform(carla.Location(x=-78, y=150, z=1), carla.Rotation(yaw=270))
-        top_car_1_2 = CarlaActorPool.request_new_actor('vehicle.tesla.model3', spawn_point)
+        top_car_1_2 = CarlaDataProvider.request_new_actor('vehicle.tesla.model3', spawn_point)
         self.other_actors.append(top_car_1_2)
         spawn_point = carla.Transform(carla.Location(x=-78, y=157, z=1), carla.Rotation(yaw=270))
-        top_car_1_3 = CarlaActorPool.request_new_actor('vehicle.volkswagen.t2', spawn_point)
+        top_car_1_3 = CarlaDataProvider.request_new_actor('vehicle.volkswagen.t2', spawn_point)
         self.other_actors.append(top_car_1_3)
         #
         print("Cars in the top 2")
         spawn_point = carla.Transform(carla.Location(x=-74, y=131, z=1), carla.Rotation(yaw=270))
-        top_car_2_1 = CarlaActorPool.request_new_actor('vehicle.dodge_charger.police', spawn_point)
+        top_car_2_1 = CarlaDataProvider.request_new_actor('vehicle.dodge_charger.police', spawn_point)
         self.other_actors.append(top_car_2_1)
         print("Cars in the top 2")
         spawn_point = carla.Transform(carla.Location(x=-74, y=140, z=1), carla.Rotation(yaw=270))
-        top_car_2_2 = CarlaActorPool.request_new_actor('vehicle.jeep.wrangler_rubicon', spawn_point)
+        top_car_2_2 = CarlaDataProvider.request_new_actor('vehicle.jeep.wrangler_rubicon', spawn_point)
         self.other_actors.append(top_car_2_2)
         print("Cars in the top 2")
         spawn_point = carla.Transform(carla.Location(x=-74, y=148, z=1), carla.Rotation(yaw=270))
-        top_car_2_3 = CarlaActorPool.request_new_actor('vehicle.mercedes-benz.coupe', spawn_point)
+        top_car_2_3 = CarlaDataProvider.request_new_actor('vehicle.mercedes-benz.coupe', spawn_point)
         self.other_actors.append(top_car_2_3)
         print("Cars in the top 2")
         spawn_point = carla.Transform(carla.Location(x=-88, y=148, z=1), carla.Rotation(yaw=90))
-        top_car_3 = CarlaActorPool.request_new_actor('vehicle.toyota.prius', spawn_point)
+        top_car_3 = CarlaDataProvider.request_new_actor('vehicle.toyota.prius', spawn_point)
         self.other_actors.append(top_car_3)
 
         no_peds = False
@@ -174,64 +174,64 @@ class AutoCastTest(BasicScenario):
 
         # add more peds
         peds_type = 'walker.pedestrian.0001'
-        # blueprintsWalkers = CarlaActorPool._blueprint_library.filter("walker.pedestrian.*")
+        # blueprintsWalkers = CarlaDataProvider._blueprint_library.filter("walker.pedestrian.*")
         # print(blueprintsWalkers)
         # peds on right
         print("peds in the right")
         spawn_point = carla.Transform(carla.Location(x=-94, y=114, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0001', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0001', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-95, y=117, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0002', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0002', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-94, y=120, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0003', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0003', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-94, y=123, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0004', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0004', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-95, y=124, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0005', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0005', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-94, y=126, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0006', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0006', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-95, y=130, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0007', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0007', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-94, y=133, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0008', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0008', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-95, y=136, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0009', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0009', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-94, y=138, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0010', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0010', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-95, y=141, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0011', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0011', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-94, y=142, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0012', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0012', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-95, y=144, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0013', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0013', spawn_point)
 
         # peds on left
         spawn_point = carla.Transform(carla.Location(x=-68, y=115, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0014', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0014', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-67, y=116, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0015', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0015', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-68, y=119, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0016', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0016', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-67, y=124, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0017', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0017', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-68, y=126, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0018', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0018', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-67, y=128, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0019', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0019', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-68, y=131, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0020', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0020', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-67, y=134, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0021', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0021', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-68, y=138, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0022', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0022', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-67, y=140, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0023', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0023', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-68, y=141, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0024', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0024', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-67, y=145, z=1), carla.Rotation(yaw=270))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0025', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0025', spawn_point)
         spawn_point = carla.Transform(carla.Location(x=-68, y=147, z=1), carla.Rotation(yaw=90))
-        CarlaActorPool.request_new_actor('walker.pedestrian.0026', spawn_point)
+        CarlaDataProvider.request_new_actor('walker.pedestrian.0026', spawn_point)
 
 
 
