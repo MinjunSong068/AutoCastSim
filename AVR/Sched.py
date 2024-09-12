@@ -9,7 +9,7 @@ import numpy as np
 import random
 from AVR import Utils
 import threading
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider, CarlaActorPool
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 
 class Sched(object):
     def __init__(self, _mControlChannel):

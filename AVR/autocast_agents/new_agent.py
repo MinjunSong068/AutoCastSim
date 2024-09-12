@@ -16,8 +16,12 @@ import numpy as np
 import time
 import carla
 import imageio
-from agents.navigation.agent import Agent, AgentState
-from agents.navigation.global_route_planner import GlobalRoutePlanner
+
+from AutoCastSim.srunner.tests.carla_mocks.agents.navigation import Agent, AgentState
+from AutoCastSim.srunner.tests.carla_mocks.agents.navigation.global_route_planner import GlobalRoutePlanner
+
+# from agents.navigation.agent import Agent, AgentState
+# from agents.navigation.global_route_planner import GlobalRoutePlanner
 from agents.navigation.global_route_planner_dao import GlobalRoutePlannerDAO
 from agents.tools.misc import is_within_distance_ahead, compute_magnitude_angle
 from srunner.tools.route_manipulation import interpolate_trajectory

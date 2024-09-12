@@ -6,7 +6,7 @@ import time
 from collections import defaultdict
 from AVR import Utils
 from AVR.DetectedObject import DetectedObject
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
+from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 import carla
 import imageio
 
