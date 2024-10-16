@@ -11,6 +11,7 @@ It must not be modified and is for reference only!
 """
 
 from __future__ import print_function
+import os
 import sys
 import time
 
@@ -20,7 +21,10 @@ from srunner.autoagents.agent_wrapper import AgentWrapper
 from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from srunner.scenariomanager.result_writer import ResultOutputProvider
 from srunner.scenariomanager.timer import GameTime
-from srunner.scenariomanager.watchdog import Watchdog
+
+from AutoCastSim.AVR.HUD import HUD
+from AutoCastSim.AVR.DataLogger import DataLogger
+from AutoCastSim.AVR import Utils, Collaborator
 
 
 class ScenarioManager(object):
@@ -41,7 +45,7 @@ class ScenarioManager(object):
     5. If needed, cleanup with manager.stop_scenario()
     """
 
-    def __init__(self, debug_mode=False, sync_mode=False, timeout=2.0):
+    def __init__(self, route_mode=True, debug_mode=False, sync_mode=False, timeout=2.0, recording=False, sharing=False, prefix=''):
         """
         Setups up the parameters, which will be filled at load_scenario()
 
@@ -63,6 +67,20 @@ class ScenarioManager(object):
         self.scenario_duration_game = 0.0
         self.start_system_time = None
         self.end_system_time = None
+
+        self._route_mode = route_mode
+
+        """AVR"""
+        Utils.RecordingOutput = os.path.join(Utils.RecordingOutput, prefix) + '/'
+
+        self._temp_hud = True
+        self._hud = None
+        self._hud_debug = False
+        if self._route_mode and self._temp_hud:
+            self._hud = HUD(recording=recording, debug_mode=self._hud_debug)
+        self.sharing_session = sharing
+        print("Finished initializing scenario manager")
+
 
     def _reset(self):
         """
@@ -113,6 +131,42 @@ class ScenarioManager(object):
         if self._agent is not None:
             self._agent.setup_sensors(self.ego_vehicles[0], self._debug_mode)
 
+    def check_sensors_on_other_actors(self, dist_thresh=50):
+        """
+        Keep actors in vicinity with sensors.
+        """
+        vehicles = CarlaDataProvider.get_actors()
+        for id, vehicle in vehicles:
+            """ filter ego vehicles """
+            is_ego = False
+            for ego_vehicle in self.ego_vehicles:
+                # print("EGO ID: {}".format(ego_vehicle.id))
+                if id == ego_vehicle.id:
+                    is_ego = True
+                    break
+            if is_ego:
+                continue
+            if vehicle.attributes['role_name'] == Utils.PASSIVE_ACTOR_ROLENAME:
+                continue
+            """ decide distance """
+            nearby = False
+            vehicle_location = CarlaDataProvider.get_location(vehicle)
+            for ego_vehicle in self.ego_vehicles:
+                ego_location = CarlaDataProvider.get_location(ego_vehicle)
+                if (ego_location is not None) and (vehicle_location is not None) and (ego_location.distance(vehicle_location) < dist_thresh):
+                    nearby = True
+                    break
+            sensor_id = str(id) + Collaborator.LidarSensorName
+            # print("Sensor ID: {}".format(sensor_id))
+            existing_sensor = self._agent.has_sensor(sensor_id)
+            if nearby and (not existing_sensor):
+                # self._agent.try_setup_lidar_on_other_vehicle(vehicle, debug_mode=self._debug_mode)
+                self._agent.setup_sensors(vehicle, debug_mode=self._debug_mode)
+                self._agent.setup_collaborator(vehicle, self.sharing_session)
+            if (not nearby) and existing_sensor:
+                self._agent.destroy_sensors(id)
+                self._agent.destroy_collaborator(id)        
+
     def run_scenario(self):
         """
         Trigger the start of the scenario and wait for it to finish/fail
@@ -126,6 +180,8 @@ class ScenarioManager(object):
         self._running = True
 
         while self._running:
+            print("=================================================================================================")
+            time_start = time.time()
             timestamp = None
             world = CarlaDataProvider.get_world()
             if world:
@@ -133,7 +189,39 @@ class ScenarioManager(object):
                 if snapshot:
                     timestamp = snapshot.timestamp
             if timestamp:
+                """AVR share before action"""
+
+                if self._route_mode and self.sharing_session:
+                    self.check_sensors_on_other_actors()
+                sensor_update = time.time()
+                if Utils.TIMEPROFILE: print("Sensor Update: {} s, Total {} s".format(sensor_update-time_start, sensor_update-time_start))
+                if self._agent is not None:
+                    if not Utils.TIMEPROFILE:
+                        """parallel sync version"""
+                        self._agent.tick_collaborators()
+                        self._agent.join_collaborators()
+                        if self.sharing_session:
+                            self._agent.tick_beacon()
+                    else:
+                        """single thread version"""
+                        for c in self._agent._collaborator_dict.values():
+                            if c:
+                                c.tick()
+                                c.tick_join()
+                        if self.sharing_session:
+                            self._agent.tick_beacon()
+                collab_update = time.time()
+                if Utils.TIMEPROFILE: print("Collaborator: {} s, Total {} s".format(collab_update - sensor_update, collab_update-time_start))
+                    
                 self._tick_scenario(timestamp)
+                scen_update = time.time()
+                if Utils.TIMEPROFILE: print("Scenario Tick: {} s, Total {} s".format(scen_update - collab_update, scen_update - time_start))
+                """AVR Visualization"""
+                if self._temp_hud:
+                    if self._hud.tick():
+                        break
+                hud_update = time.time()
+                if Utils.TIMEPROFILE: print("HUD update: {} s, Total {} s".format(hud_update - scen_update, hud_update - time_start))
 
         self.cleanup()
 
@@ -165,11 +253,15 @@ class ScenarioManager(object):
             GameTime.on_carla_tick(timestamp)
             CarlaDataProvider.on_carla_tick()
 
-            if self._agent is not None:
-                ego_action = self._agent()  # pylint: disable=not-callable
+            if self._route_mode and self._temp_hud:
+                self._hud.on_carla_tick(timestamp)
 
             if self._agent is not None:
-                self.ego_vehicles[0].apply_control(ego_action)
+                ego_action = self._agent()  # pylint: disable=not-callable
+                if Utils.HUMAN_AGENT:
+                    self.ego_vehicles[0].apply_control(self._hud.human_control)
+                else:
+                    self.ego_vehicles[0].apply_control(ego_action)
 
             # Tick scenario
             self.scenario_tree.tick_once()
@@ -231,3 +323,11 @@ class ScenarioManager(object):
         output.write()
 
         return failure or timeout
+    
+    def set_hude_agent(self, agent):
+        if self._hud:
+            self._hud.set_agent(agent, self._agent)
+
+    def set_hud_world(self, world):
+        if self._hud:
+            self._hud.set_world(world)

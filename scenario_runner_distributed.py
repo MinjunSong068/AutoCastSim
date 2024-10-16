@@ -34,6 +34,8 @@ from srunner.scenariomanager.carla_data_provider import CarlaDataProvider #Carla
 from srunner.scenariomanager.scenario_manager import ScenarioManager
 from AVR.DataLogger import DataLogger
 
+from AVR import HUD
+
 # Version of scenario_runner
 VERSION = '0.9.13'
 
@@ -64,6 +66,7 @@ class ScenarioRunner(object):
 
     additional_scenario_module = None
 
+    agent_instance = None
     module_agent = None
 
     def __init__(self, args):
@@ -97,6 +100,7 @@ class ScenarioRunner(object):
         # requests in the localhost at port 2000.
         self.client = carla.Client(args.host, int(args.port))
         self.client.set_timeout(10)
+        
         dist = pkg_resources.get_distribution("carla")
         if LooseVersion(dist.version) < LooseVersion('0.9.15'):
             raise ImportError("CARLA version 0.9.15 or newer required. CARLA version found: {}".format(dist))
