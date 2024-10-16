@@ -11,14 +11,14 @@ import os
 import open3d as o3d
 
 
-from AVR import PCProcess, Sched, Utils, Comm
-from AVR.DataLogger import DataLogger
-from AVR.DetectedObject import DetectedObject
-from AVR.ViewSegment import ViewSegment
-from AVR.CommLogger import CommLogger
-from AVR.PCProcess import LidarPreprocessor
-from AVR.TraceLogger import TraceLogger
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider #, CarlaActorPool
+from AutoCastSim.AVR import PCProcess, Sched, Utils, Comm
+from AutoCastSim.AVR.DataLogger import DataLogger
+from AutoCastSim.AVR.DetectedObject import DetectedObject
+from AutoCastSim.AVR.ViewSegment import ViewSegment
+from AutoCastSim.AVR.CommLogger import CommLogger
+from AutoCastSim.AVR.PCProcess import LidarPreprocessor
+from AutoCastSim.AVR.TraceLogger import TraceLogger
+from AutoCastSim.srunner.scenariomanager.carla_data_provider import CarlaDataProvider #, CarlaActorPool
 
 LidarSensorName = "_LIDAR"
 FusedLidarSensorName = "_FusedLidar"

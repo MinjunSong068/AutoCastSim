@@ -4,9 +4,9 @@ import numpy as np
 import math
 import time
 from collections import defaultdict
-from AVR import Utils
-from AVR.DetectedObject import DetectedObject
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.AVR import Utils
+from AutoCastSim.AVR.DetectedObject import DetectedObject
+from AutoCastSim.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 import carla
 import imageio
 

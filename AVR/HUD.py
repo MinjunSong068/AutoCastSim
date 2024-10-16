@@ -29,7 +29,7 @@ import threading
 import time
 
 import carla
-from AVR import Utils, PCProcess, Collaborator
+from AutoCastSim.AVR import Utils, PCProcess, Collaborator
 import datetime
 import math
 import pygame
@@ -39,10 +39,10 @@ import copy
 import weakref
 from carla import ColorConverter as cc
 
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider #,CarlaActorPool
-from AVR.Sensors import CollisionSensor, GnssSensor, LaneInvasionSensor
-from AVR.KeyboardControl import KeyboardControl
-from AVR.DataLogger import DataLogger
+from AutoCastSim.srunner.scenariomanager.carla_data_provider import CarlaDataProvider #,CarlaActorPool
+from AutoCastSim.AVR.Sensors import CollisionSensor, GnssSensor, LaneInvasionSensor
+from AutoCastSim.AVR.KeyboardControl import KeyboardControl
+from AutoCastSim.AVR.DataLogger import DataLogger
 
 # ==============================================================================
 # -- FadingText ----------------------------------------------------------------

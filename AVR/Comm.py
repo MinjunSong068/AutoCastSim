@@ -7,7 +7,7 @@ import paho.mqtt.client as mqtt
 import json
 from collections import namedtuple
 import threading
-from AVR import Utils, Sched
+from AutoCastSim.AVR import Utils, Sched
 import numpy as np
 import carla
 import queue

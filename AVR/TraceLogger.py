@@ -2,7 +2,7 @@ import os
 import threading
 
 import numpy as np
-from AVR import Utils
+from AutoCastSim.AVR import Utils
 
 class TraceLogger():
     """

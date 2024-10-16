@@ -2,7 +2,7 @@
 import carla
 import weakref
 import collections
-from AVR import Utils
+from AutoCastSim.AVR import Utils
 import math
 # ==============================================================================
 # -- CollisionSensor -----------------------------------------------------------
