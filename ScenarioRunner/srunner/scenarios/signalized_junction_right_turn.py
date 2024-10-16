@@ -15,18 +15,18 @@ import py_trees
 
 import carla
 
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import ActorFlow, TrafficLightFreezer, ScenarioTimeout
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest, ScenarioTimeoutTest
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import WaitEndIntersection, DriveDistance
-from srunner.scenarios.basic_scenario import BasicScenario
-from srunner.tools.scenario_helper import (generate_target_waypoint,
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import ActorFlow, TrafficLightFreezer, ScenarioTimeout
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest, ScenarioTimeoutTest
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import WaitEndIntersection, DriveDistance
+from AutoCastSim.ScenarioRunner.srunner.scenarios.basic_scenario import BasicScenario
+from AutoCastSim.ScenarioRunner.srunner.tools.scenario_helper import (generate_target_waypoint,
                                            get_junction_topology,
                                            filter_junction_wp_direction,
                                            get_same_dir_lanes,
                                            get_closest_traffic_light)
 
-from srunner.tools.background_manager import HandleJunctionScenario
+from AutoCastSim.ScenarioRunner.srunner.tools.background_manager import HandleJunctionScenario
 
 
 def get_value_parameter(config, name, p_type, default):

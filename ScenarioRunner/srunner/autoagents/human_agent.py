@@ -28,7 +28,7 @@ except ImportError:
 
 import carla
 
-from srunner.autoagents.autonomous_agent import AutonomousAgent
+from AutoCastSim.ScenarioRunner.srunner.autoagents.autonomous_agent import AutonomousAgent
 
 
 class HumanInterface(object):

@@ -1,5 +1,5 @@
-from AVR import Utils, Collaborator
-from AVR.Utils import transform_pointcloud, convert_json_to_transform, transform_coords
+from AutoCastSim.ScenarioRunner.AVR import Utils, Collaborator
+from AutoCastSim.ScenarioRunner.AVR.Utils import transform_pointcloud, convert_json_to_transform, transform_coords
 import carla
 import pygame
 import scipy
@@ -8,7 +8,7 @@ from scipy import misc
 import json
 from collections import namedtuple
 
-from AVR.PCProcess import LidarPreprocessor
+from AutoCastSim.ScenarioRunner.AVR.PCProcess import LidarPreprocessor
 
 import numpy as np
 import os

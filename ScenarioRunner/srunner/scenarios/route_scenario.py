@@ -22,14 +22,14 @@ import py_trees
 from numpy import random
 import carla
 
-from agents.navigation.local_planner import RoadOption
+from AutoCastSim.ScenarioRunner.agents.navigation.local_planner import RoadOption
 
-from srunner.scenarioconfigs.scenario_configuration import ActorConfigurationData
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenarioconfigs.scenario_configuration import ActorConfigurationData
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import ScenarioTriggerer, Idle
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import WaitForBlackboardVariable
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import (CollisionTest,
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import ScenarioTriggerer, Idle
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import WaitForBlackboardVariable
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_criteria import (CollisionTest,
                                                                      InRouteTest,
                                                                      RouteCompletionTest,
                                                                      OutsideRouteLanesTest,
@@ -38,14 +38,14 @@ from srunner.scenariomanager.scenarioatomics.atomic_criteria import (CollisionTe
                                                                      ActorBlockedTest,
                                                                      MinimumSpeedRouteTest)
 
-from srunner.scenarios.basic_scenario import BasicScenario
-from srunner.scenarios.background_activity import BackgroundBehavior
-from srunner.scenariomanager.weather_sim import RouteWeatherBehavior
-from srunner.scenariomanager.lights_sim import RouteLightsBehavior
-from srunner.scenariomanager.timer import RouteTimeoutBehavior
+from AutoCastSim.ScenarioRunner.srunner.scenarios.basic_scenario import BasicScenario
+from AutoCastSim.ScenarioRunner.srunner.scenarios.background_activity import BackgroundBehavior
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.weather_sim import RouteWeatherBehavior
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.lights_sim import RouteLightsBehavior
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.timer import RouteTimeoutBehavior
 
-from srunner.tools.route_parser import RouteParser, DIST_THRESHOLD
-from srunner.tools.route_manipulation import interpolate_trajectory
+from AutoCastSim.ScenarioRunner.srunner.tools.route_parser import RouteParser, DIST_THRESHOLD
+from AutoCastSim.ScenarioRunner.srunner.tools.route_manipulation import interpolate_trajectory
 
 
 SECONDS_GIVEN_PER_METERS = 0.4

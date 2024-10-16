@@ -15,22 +15,22 @@ from __future__ import print_function
 import py_trees
 import carla
 
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorDestroy,
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorDestroy,
                                                                       SwitchWrongDirectionTest,
                                                                       BasicAgentBehavior,
                                                                       ScenarioTimeout,
                                                                       Idle, WaitForever,
                                                                       HandBrakeVehicle,
                                                                       OppositeActorFlow)
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest, ScenarioTimeoutTest
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (DriveDistance,
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest, ScenarioTimeoutTest
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (DriveDistance,
                                                                                InTriggerDistanceToLocation,
                                                                                InTriggerDistanceToVehicle,
                                                                                WaitUntilInFront,
                                                                                WaitUntilInFrontPosition)
-from srunner.scenarios.basic_scenario import BasicScenario
-from srunner.tools.background_manager import LeaveSpaceInFront, SetMaxSpeed, ChangeOppositeBehavior, ChangeRoadBehavior
+from AutoCastSim.ScenarioRunner.srunner.scenarios.basic_scenario import BasicScenario
+from AutoCastSim.ScenarioRunner.srunner.tools.background_manager import LeaveSpaceInFront, SetMaxSpeed, ChangeOppositeBehavior, ChangeRoadBehavior
 
 
 def get_value_parameter(config, name, p_type, default):

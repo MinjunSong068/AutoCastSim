@@ -12,8 +12,8 @@ from __future__ import print_function
 import carla
 from agents.navigation.basic_agent import BasicAgent
 
-from srunner.autoagents.autonomous_agent import AutonomousAgent
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.autoagents.autonomous_agent import AutonomousAgent
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 
 
 class NpcAgent(AutonomousAgent):

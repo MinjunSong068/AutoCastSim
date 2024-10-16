@@ -34,7 +34,7 @@ import tf
 from carla_msgs.msg import CarlaEgoVehicleStatus, CarlaEgoVehicleInfo, CarlaEgoVehicleInfoWheel, CarlaEgoVehicleControl, CarlaWorldInfo
 # pylint: enable=line-too-long
 
-from srunner.autoagents.autonomous_agent import AutonomousAgent
+from AutoCastSim.ScenarioRunner.srunner.autoagents.autonomous_agent import AutonomousAgent
 
 
 class RosAgent(AutonomousAgent):

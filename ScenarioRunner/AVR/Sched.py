@@ -7,9 +7,9 @@ import pygame
 import math
 import numpy as np
 import random
-from AVR import Utils
+from AutoCastSim.ScenarioRunner.AVR import Utils
 import threading
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider, CarlaActorPool
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider, CarlaActorPool
 
 class Sched(object):
     def __init__(self, _mControlChannel):

@@ -16,13 +16,13 @@ import py_trees
 
 import carla
 
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (WaitForBlackboardVariable,
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (WaitForBlackboardVariable,
                                                                                InTimeToArrivalToLocation)
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import WaitForever
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
-from srunner.scenariomanager.timer import TimeOut
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import UpdateAllActorControls
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import Criterion
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import WaitForever
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.timer import TimeOut
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import UpdateAllActorControls
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_criteria import Criterion
 
 #TODO: Rename to something else because this is specifically for multi-agent RouteScenario 
 class BasicScenario(object):

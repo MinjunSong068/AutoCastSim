@@ -19,7 +19,7 @@ from numpy import random
 from six import iteritems
 
 import carla
-from agents.navigation.global_route_planner import GlobalRoutePlanner
+from AutoCastSim.ScenarioRunner.agents.navigation.global_route_planner import GlobalRoutePlanner
 
 
 def calculate_velocity(actor):

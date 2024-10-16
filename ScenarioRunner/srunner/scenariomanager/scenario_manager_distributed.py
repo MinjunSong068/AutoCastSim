@@ -16,11 +16,11 @@ import time
 
 import py_trees
 
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
-from srunner.scenariomanager.result_writer import ResultOutputProvider
-from srunner.scenariomanager.timer import GameTime
-from srunner.scenariomanager.watchdog import Watchdog
-from synchronization import Status
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.result_writer import ResultOutputProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.timer import GameTime
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.watchdog import Watchdog
+from AutoCastSim.ScenarioRunner.synchronization import Status
 
 class ScenarioManager(object):
 

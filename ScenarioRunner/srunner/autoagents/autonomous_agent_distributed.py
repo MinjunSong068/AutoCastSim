@@ -11,9 +11,9 @@ from __future__ import print_function
 
 import carla
 
-from srunner.autoagents.sensor_interface_distributed import SensorInterface
-from srunner.scenariomanager.timer import GameTime
-from srunner.tools.route_manipulation import downsample_route
+from AutoCastSim.ScenarioRunner.srunner.autoagents.sensor_interface_distributed import SensorInterface
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.timer import GameTime
+from AutoCastSim.ScenarioRunner.srunner.tools.route_manipulation import downsample_route
 
 
 class AutonomousAgent(object):

@@ -11,7 +11,7 @@ from __future__ import print_function
 
 import carla
 
-from srunner.autoagents.autonomous_agent import AutonomousAgent
+from AutoCastSim.ScenarioRunner.srunner.autoagents.autonomous_agent import AutonomousAgent
 
 
 class DummyAgent(AutonomousAgent):

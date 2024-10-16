@@ -1,5 +1,5 @@
 import numpy as np
-from AVR.LidarProcessorConfig import LidarProcessorConfig
+from AutoCastSim.ScenarioRunner.AVR.LidarProcessorConfig import LidarProcessorConfig
 
 class DetectedObject(object):
     def __init__(self, id):

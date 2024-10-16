@@ -16,7 +16,7 @@ specific information
 
 import fnmatch
 
-from srunner.metrics.tools.osc2_trace_parser import Osc2TraceParser
+from AutoCastSim.ScenarioRunner.srunner.metrics.tools.osc2_trace_parser import Osc2TraceParser
 
 
 class Osc2Log(object):  # pylint: disable=too-many-public-methods

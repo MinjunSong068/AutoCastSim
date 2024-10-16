@@ -4,9 +4,9 @@ import numpy as np
 import math
 import time
 from collections import defaultdict
-from AVR import Utils
-from AVR.DetectedObject import DetectedObject
-from srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
+from AutoCastSim.ScenarioRunner.AVR import Utils
+from AutoCastSim.ScenarioRunner.AVR.DetectedObject import DetectedObject
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaActorPool, CarlaDataProvider
 import carla
 import imageio
 
@@ -14,7 +14,7 @@ from MinkowskiEngine.utils import sparse_quantize
 # from lidar_cython import fast_lidar
 from numba import jit
 
-from AVR.LidarProcessorConfig import LidarProcessorConfig
+from AutoCastSim.ScenarioRunner.AVR.LidarProcessorConfig import LidarProcessorConfig
 
 
 def extract_actor_bbox_ego_perspective(actor_list, th=0.2):

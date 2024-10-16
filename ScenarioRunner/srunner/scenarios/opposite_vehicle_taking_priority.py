@@ -15,24 +15,24 @@ from __future__ import print_function
 import py_trees
 import carla
 
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
                                                                       ActorDestroy,
                                                                       TrafficLightFreezer,
                                                                       ConstantVelocityAgentBehavior,
                                                                       Idle)
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (InTriggerDistanceToLocation,
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import (InTriggerDistanceToLocation,
                                                                                InTimeToArrivalToLocation,
                                                                                WaitEndIntersection)
-from srunner.scenarios.basic_scenario import BasicScenario
-from srunner.tools.scenario_helper import (get_geometric_linear_intersection,
+from AutoCastSim.ScenarioRunner.srunner.scenarios.basic_scenario import BasicScenario
+from AutoCastSim.ScenarioRunner.srunner.tools.scenario_helper import (get_geometric_linear_intersection,
                                            generate_target_waypoint,
                                            get_junction_topology,
                                            filter_junction_wp_direction,
                                            get_closest_traffic_light)
 
-from srunner.tools.background_manager import HandleJunctionScenario
+from AutoCastSim.ScenarioRunner.srunner.tools.background_manager import HandleJunctionScenario
 
 
 

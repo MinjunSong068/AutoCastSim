@@ -16,7 +16,7 @@ It is meant to serve as an example of how to use the map API
 import math
 import json
 
-from srunner.metrics.examples.basic_metric import BasicMetric
+from AutoCastSim.ScenarioRunner.srunner.metrics.examples.basic_metric import BasicMetric
 
 
 class DistanceToLaneCenter(BasicMetric):

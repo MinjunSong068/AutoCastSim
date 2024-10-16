@@ -15,19 +15,19 @@ And encounters another vehicle passing across the junction.
 import py_trees
 import carla
 
-from AVR import Utils
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
+from AutoCastSim.ScenarioRunner.AVR import Utils
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
                                                                       ActorDestroy,
                                                                       SyncArrival,
                                                                       KeepVelocity,
                                                                       StopVehicle)
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest, DrivenDistanceTest
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import InTriggerRegion, DriveDistance
-from srunner.scenarios.basic_scenario import BasicScenario
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest, DrivenDistanceTest
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import InTriggerRegion, DriveDistance
+from AutoCastSim.ScenarioRunner.srunner.scenarios.basic_scenario import BasicScenario
 
 # from AVR.Utils import get_geometric_linear_intersection_by_loc_and_intersection
-from AVR import Utils
+from AutoCastSim.ScenarioRunner.AVR import Utils
 import random
 import numpy as np
 

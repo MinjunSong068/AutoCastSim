@@ -11,8 +11,8 @@ from __future__ import print_function
 
 import py_trees
 
-from srunner.scenarios.basic_scenario import BasicScenario
-from srunner.tools.background_manager import (ChangeRoadBehavior,
+from AutoCastSim.ScenarioRunner.srunner.scenarios.basic_scenario import BasicScenario
+from AutoCastSim.ScenarioRunner.srunner.tools.background_manager import (ChangeRoadBehavior,
                                               ChangeOppositeBehavior,
                                               ChangeJunctionBehavior)
 

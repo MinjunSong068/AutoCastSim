@@ -13,19 +13,19 @@ from six.moves.queue import Queue  # pylint: disable=relative-import
 
 import py_trees
 import carla
-from agents.navigation.local_planner import RoadOption
+from AutoCastSim.ScenarioRunner.agents.navigation.local_planner import RoadOption
 
-from AVR import Utils
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
+from AutoCastSim.ScenarioRunner.AVR import Utils
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import (ActorTransformSetter,
                                                                       ActorDestroy,
                                                                       ActorSource,
                                                                       ActorSink,
                                                                       WaypointFollower, TrafficLightManipulator)
-from srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import InTriggerRegion, DriveDistance
-from srunner.scenarios.basic_scenario import BasicScenario
-from srunner.tools.scenario_helper import generate_target_waypoint_list
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_criteria import CollisionTest
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import InTriggerRegion, DriveDistance
+from AutoCastSim.ScenarioRunner.srunner.scenarios.basic_scenario import BasicScenario
+from AutoCastSim.ScenarioRunner.srunner.tools.scenario_helper import generate_target_waypoint_list
 
 
 class AutoCastIntersectionUnprotectedLeftTurn(BasicScenario):

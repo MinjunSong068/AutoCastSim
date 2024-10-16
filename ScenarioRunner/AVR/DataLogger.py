@@ -11,8 +11,8 @@ import h5py
 
 import carla
 
-from AVR import Utils
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider #,CarlaActorPool
+from AutoCastSim.ScenarioRunner.AVR import Utils
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider #,CarlaActorPool
 
 
 class DataLogger():

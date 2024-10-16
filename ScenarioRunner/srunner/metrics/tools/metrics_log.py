@@ -15,7 +15,7 @@ specific information
 """
 
 import fnmatch
-from srunner.metrics.tools.metrics_parser import MetricsParser
+from AutoCastSim.ScenarioRunner.srunner.metrics.tools.metrics_parser import MetricsParser
 
 class MetricsLog(object):  # pylint: disable=too-many-public-methods
     """

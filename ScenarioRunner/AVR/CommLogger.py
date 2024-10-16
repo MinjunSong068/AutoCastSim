@@ -1,5 +1,5 @@
 import json
-from AVR import Utils
+from AutoCastSim.ScenarioRunner.AVR import Utils
 import os
 
 class CommLogger(object):

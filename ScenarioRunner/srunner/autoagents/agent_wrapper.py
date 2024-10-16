@@ -13,8 +13,8 @@ from __future__ import print_function
 
 import carla
 
-from srunner.autoagents.sensor_interface import CallBack
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.autoagents.sensor_interface import CallBack
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 
 
 class AgentWrapper(object):

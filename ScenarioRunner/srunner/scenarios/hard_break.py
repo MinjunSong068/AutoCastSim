@@ -14,11 +14,11 @@ suddenly hard breaking, forcing the ego to avoid the collision
 
 import py_trees
 
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import Idle
-from srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import DriveDistance
-from srunner.scenarios.basic_scenario import BasicScenario
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import Idle
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_trigger_conditions import DriveDistance
+from AutoCastSim.ScenarioRunner.srunner.scenarios.basic_scenario import BasicScenario
 
-from srunner.tools.background_manager import StopFrontVehicles, StartFrontVehicles
+from AutoCastSim.ScenarioRunner.srunner.tools.background_manager import StopFrontVehicles, StartFrontVehicles
 
 
 class HardBreakRoute(BasicScenario):

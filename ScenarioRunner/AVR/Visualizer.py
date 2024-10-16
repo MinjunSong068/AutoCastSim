@@ -8,7 +8,7 @@ import numpy as np
 import open3d as o3d
 import matplotlib.pyplot as plt
 
-from AVR import Utils
+from AutoCastSim.ScenarioRunner.AVR import Utils
 
 # 45 degree tilted angle constants
 # get these parameters using the o3d UI, ctrl x after adjusting to the right angle

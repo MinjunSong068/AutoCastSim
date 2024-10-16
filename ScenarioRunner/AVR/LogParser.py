@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
-from AVR import Utils
+from AutoCastSim.ScenarioRunner.AVR import Utils
 
 
 class LogParser(object):

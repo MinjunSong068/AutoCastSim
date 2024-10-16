@@ -3,7 +3,7 @@
 # ==============================================================================
 import carla
 
-from AVR import Utils
+from AutoCastSim.ScenarioRunner.AVR import Utils
 
 try:
     import pygame
