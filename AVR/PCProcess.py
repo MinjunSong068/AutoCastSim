@@ -14,7 +14,7 @@ from MinkowskiEngine.utils import sparse_quantize
 # from lidar_cython import fast_lidar
 from numba import jit
 
-from AVR.LidarProcessorConfig import LidarProcessorConfig
+from AutoCastSim.AVR.LidarProcessorConfig import LidarProcessorConfig
 
 
 def extract_actor_bbox_ego_perspective(actor_list, th=0.2):

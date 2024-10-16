@@ -18,13 +18,13 @@ import zmq
 import carla
 import numpy as np
 from numpy import random
-from comm import ServerComm
-from synchronization import Status
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
-from srunner.scenariomanager.scenario_manager_distributed import ScenarioManager
-from srunner.scenarios.route_scenario_distributed import RouteScenario
-from srunner.tools.scenario_parser import ScenarioConfigurationParser
-from srunner.tools.route_parser_distributed import RouteParser
+from ScenarioRunner.comm import ServerComm
+from ScenarioRunner.synchronization import Status
+from ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from ScenarioRunner.srunner.scenariomanager.scenario_manager_distributed import ScenarioManager
+from ScenarioRunner.srunner.scenarios.route_scenario_distributed import RouteScenario
+from ScenarioRunner.srunner.tools.scenario_parser import ScenarioConfigurationParser
+from ScenarioRunner.srunner.tools.route_parser_distributed import RouteParser
 
 
 from AVR import Utils
