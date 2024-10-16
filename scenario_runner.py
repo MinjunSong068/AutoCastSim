@@ -130,12 +130,17 @@ class ScenarioRunner(object):
         print("Traffic manager port {}".format(self._args.trafficManagerPort))
         self.traffic_manager = self.client.get_trafficmanager(int(self._args.trafficManagerPort))
 
+        print("Checking CARLA version")
+
         dist = pkg_resources.get_distribution("carla")
         if LooseVersion(dist.version) < LooseVersion('0.9.8'):
             raise ImportError("CARLA version 0.9.8 or newer required. CARLA version found: {}".format(dist))
 
         # Load additional scenario definitions, if there are any
         # If something goes wrong an exception will be thrown by importlib (ok here)
+
+        print("Loading additional scenario definitions")
+
         if self._args.additionalScenario != '':
             module_name = os.path.basename(args.additionalScenario).split('.')[0]
             sys.path.insert(0, os.path.dirname(args.additionalScenario))
@@ -143,14 +148,19 @@ class ScenarioRunner(object):
 
         # Load agent if requested via command line args
         # If something goes wrong an exception will be thrown by importlib (ok here)
+
+        print("Checking if load agent was requested")
+
         if self._args.agent is not None:
             module_name = os.path.basename(args.agent).split('.')[0]
             sys.path.insert(0, os.path.dirname(args.agent))
             self.module_agent = importlib.import_module(module_name)
 
+        print("Creating ScenarioManager")
         # Create the ScenarioManager
         self.manager = ScenarioManager(self._args.route, self._args.debug, self._args.timeout, recording=Utils.HUDLOG,sharing=args.sharing, prefix=prefix)
 
+        print("Create signal handler for SIGINT")
         # Create signal handler for SIGINT
         self._shutdown_requested = False
         # Reload config on SIGHUP (UNIX only)
