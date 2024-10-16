@@ -16,10 +16,10 @@ import shapely.affinity
 import numpy as np
 
 import carla
-from agents.tools.misc import vector
-from agents.navigation.local_planner import RoadOption
+from AutoCastSim.ScenarioRunner.agents.tools.misc import vector
+from AutoCastSim.ScenarioRunner.agents.navigation.local_planner import RoadOption
 
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 
 
 def get_distance_along_route(route, target_location):

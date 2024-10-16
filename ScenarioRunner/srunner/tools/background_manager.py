@@ -10,9 +10,9 @@ removing its interference with other scenarios
 """
 
 import py_trees
-from srunner.scenariomanager.scenarioatomics.atomic_behaviors import AtomicBehavior
-from srunner.scenariomanager.timer import GameTime
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.scenarioatomics.atomic_behaviors import AtomicBehavior
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.timer import GameTime
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 
 
 class ChangeRoadBehavior(AtomicBehavior):

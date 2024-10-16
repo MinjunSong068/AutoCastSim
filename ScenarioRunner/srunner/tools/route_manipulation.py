@@ -13,10 +13,10 @@ It also contains functions to convert the CARLA world location do GPS coordinate
 import math
 import xml.etree.ElementTree as ET
 
-from agents.navigation.global_route_planner import GlobalRoutePlanner
-from agents.navigation.local_planner import RoadOption
+from AutoCastSim.ScenarioRunner.agents.navigation.global_route_planner import GlobalRoutePlanner
+from AutoCastSim.ScenarioRunner.agents.navigation.local_planner import RoadOption
 
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.ScenarioRunner.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 
 
 def _location_to_gps(lat_ref, lon_ref, location):
