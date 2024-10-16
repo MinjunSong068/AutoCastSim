@@ -14,7 +14,7 @@ import numpy as np
 import glob
 from time import time
 from numpy.linalg import norm
-from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+from AutoCastSim.srunner.scenariomanager.carla_data_provider import CarlaDataProvider
 from tqdm import tqdm
 from numba import jit
 
