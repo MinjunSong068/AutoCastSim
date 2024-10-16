@@ -1,0 +1,28 @@
+<scenarios>
+   <scenario name="AutoCastScenarioRedLight" type="AutoCastIntersectionRedLightViolation">
+      <trigger_point  x="-88" y="80" z="0.0" yaw="-179"/>    
+      <routes>
+         <route id="0" town="Town03">
+            <waypoints>
+               <position x="-88.14524841308594" y="80.56861877441406" z="0.6942182779312134"/>
+               <position x="-88.14522552490234" y="80.569091796875" z="0.7230863571166992"/>
+               <position x="-87.8651123046875" y="110.43214416503906" z="0.22536852955818176"/>
+               <position x="-87.73372650146484" y="118.1299057006836" z="0.12751667201519012"/>
+               <position x="-87.6645278930664" y="129.72265625" z="0.07568008452653885"/>
+            </waypoints>
+            <ego_vehicle model="vehicle.lincoln.mkz2020" rolename="egovehicle_0" agent="NeuralAgents/dagger_agent.py"/>
+         </route>
+         <!-- <route id="1" town="Town03">
+            <waypoints>
+               <position x="-43.96916961669922" y="127.9627685546875" z="0.0"/>
+               <position x="-43.96916961669922" y="127.9627685546875" z="-0.0010975647019222379"/>
+               <position x="-68.22338104248047" y="128.51205444335938" z="0.007380180060863495"/>
+               <position x="-85.99481201171875" y="128.92019653320312" z="0.03149322420358658"/>
+               <position x="-105.58869934082031" y="129.36524963378906" z="-0.011392440646886826"/>
+               <position x="-52.5023193359375" y="128.15585327148438" z="-0.011372757144272327"/>
+            </waypoints>
+            <ego_vehicle model="vehicle.audi.tt" rolename="egovehicle_1" agent="srunner/autoagents/human_agent_distributed.py"/>
+         </route> -->
+      </routes>
+   </scenario>
+</scenarios>

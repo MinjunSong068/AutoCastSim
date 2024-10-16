@@ -1,0 +1,29 @@
+<scenarios>
+   <scenario name="DistributedFreeRide" type="FreeRide" >
+      <trigger_point x="86" y="66" z="0.0" yaw="-179"/>         
+      <routes>
+         <route id="0" town="Town10HD_Opt">
+            <waypoints>
+               <position x="85.7" y="66.4" z="0.0"/>
+               <position x="-2.8" y="66.2" z="0.0"/>
+               <position x="-41.7" y="47.7" z="0.0"/>
+               <position x="-41.7" y="-32.0" z="0.0"/>
+               <position x="12.7" y="-57.4" z="0.0"/>
+               <position x="-0.8" y="13.2" z="0.0"/>
+            </waypoints>
+            <ego_vehicle model="vehicle.volkswagen.t2_2021" rolename="egovehicle_0" agent="srunner/autoagents/human_agent_distributed.py"/>
+         </route>
+         <route id="1" town="Town10HD_Opt">
+            <waypoints>AVR/autocast_agents/simple_agent.py
+               <position x="95.7" y="76.4" z="0.0"/>
+               <position x="-12.8" y="76.2" z="0.0"/>
+               <position x="-31.7" y="57.7" z="0.0"/>
+               <position x="-51.7" y="-22.0" z="0.0"/>
+               <position x="12.7" y="-57.4" z="0.0"/>
+               <position x="-10.8" y="23.2" z="0.0"/>
+            </waypoints>
+            <ego_vehicle model="vehicle.dodge.charger_police" rolename="egovehicle_1" agent="srunner/autoagents/human_agent_distributed.py"/>
+         </route>
+      </routes>
+   </scenario>
+</scenarios>
