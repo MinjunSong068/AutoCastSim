@@ -145,6 +145,8 @@ class ScenarioRunner(object):
         status_port = "tcp://" + args.host + ":" + args.AgentControlPort
         self.servercomm_control = ServerComm(port=status_port)
 
+        print("Ready")
+
     def destroy(self):
         """
         Cleanup and delete actors, ScenarioManager and CARLA world

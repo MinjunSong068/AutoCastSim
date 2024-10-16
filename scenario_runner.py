@@ -160,6 +160,8 @@ class ScenarioRunner(object):
         signal.signal(signal.SIGTERM, self._signal_handler)
 
         self._start_wall_time = datetime.now()
+
+        print("Ready")
        
 
 
